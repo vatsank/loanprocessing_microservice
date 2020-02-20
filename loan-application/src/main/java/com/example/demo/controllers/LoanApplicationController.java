@@ -1,4 +1,4 @@
-package com.example.demo.repo;
+package com.example.demo.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import com.example.demo.clients.CibilScoreClient;
 import com.example.demo.entity.CibilScore;
 import com.example.demo.entity.LoanApplication;
+import com.example.demo.repo.LoanProcessing;
+
+import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @CrossOrigin("*")
 public class LoanApplicationController {
@@ -53,6 +56,7 @@ public class LoanApplicationController {
 	}
 	
 	@GetMapping(path = "/api/v1/loan/process")
+	@Operation(description = "The Method Invokes another Services and Updates the table ")
 	public String process(){
 		
 		String message ="{message:processed}";
