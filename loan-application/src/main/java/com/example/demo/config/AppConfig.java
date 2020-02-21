@@ -11,6 +11,10 @@ import com.example.demo.entity.CibilScore;
 @Configuration
 public class AppConfig {
 
+	@Bean
+	  public RestTemplate rest() {
+		  		  return new RestTemplate();
+	  } 
 	
 	@Bean
 	@LoadBalanced

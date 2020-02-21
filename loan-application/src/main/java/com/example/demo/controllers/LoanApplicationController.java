@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.clients.CibilScoreClient;
 import com.example.demo.clients.PastHistoryClient;
@@ -33,8 +35,14 @@ public class LoanApplicationController {
 	
 
 	@Autowired
+	@Qualifier("rest")
+	private RestTemplate template;
+	
+	@Autowired
 	private PastHistoryClient historyClient;
 
+	@Autowired
+	private LoadBalancerClient loadBalancer;
 
 	@GetMapping(path = "/api/v1/loan/approved")
 	public List<LoanApplication> findAllApproved(){
@@ -64,9 +72,22 @@ public class LoanApplicationController {
 
 	
 	@GetMapping(path = "/api/v1/loan/history/{id}")
-	public List<String> fetchHistory(@PathVariable("id") int id){
+	public String fetchHistory(@PathVariable("id") int id){
 		
-		return this.historyClient.getHistory(id);
+		ServiceInstance serviceInstance= loadBalancer.choose("PAST-HISTORY-SERVICE");
+       
+		System.out.println(serviceInstance.getUri());
+
+            String baseURL =serviceInstance.getUri().toString();
+            
+            
+            String url =baseURL+"/api/loan/history/"+id;
+    		
+            String response = template.getForObject(url,String.class);
+
+            
+		
+		return response;
 	}
 	
 	

@@ -7,7 +7,7 @@ import feign.Logger;
 import feign.RequestInterceptor;
 import feign.auth.BasicAuthRequestInterceptor;
 
-@Configuration
+// @Configuration
 public class SecurityConfig {
 
 	/**
