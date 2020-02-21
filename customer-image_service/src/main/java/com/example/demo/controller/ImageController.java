@@ -12,8 +12,11 @@ import com.example.demo.entity.Image;
 import com.example.demo.repo.ImageRepository;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @CrossOrigin(origins = "*")
+@Slf4j
 public class ImageController {
 
 	@Autowired
@@ -35,15 +38,18 @@ public class ImageController {
 		 if(response.isPresent()) {
 			 
 			 image = response.get();
+			 log.info("Image found");
 		 } else {
+			 log.debug("Image not found Exeception thrown");
 			 throw new RuntimeException();
+			 
 		 }
 		 
 		 return image;
 	}
 	
 	public Image fallBackMethodforFindById(long  id) {
-		
+		log.info("Fall back method executed");
 		return this.defaultImage;
 	}
 }

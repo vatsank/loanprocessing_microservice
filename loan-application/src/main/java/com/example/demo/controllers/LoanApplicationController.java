@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import lombok.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.clients.CibilScoreClient;
+import com.example.demo.clients.PastHistoryClient;
 import com.example.demo.entity.CibilScore;
 import com.example.demo.entity.LoanApplication;
 import com.example.demo.repo.LoanProcessing;
@@ -19,15 +22,18 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @CrossOrigin("*")
+@Setter
 public class LoanApplicationController {
 
 	@Autowired
 	private  LoanProcessing repoistory;
 	
 	@Autowired
-	CibilScoreClient scoreClient;
+	private CibilScoreClient scoreClient;
 	
 
+	@Autowired
+	private PastHistoryClient historyClient;
 
 
 	@GetMapping(path = "/api/v1/loan/approved")
@@ -56,6 +62,13 @@ public class LoanApplicationController {
 		return pendingList;
 	}
 
+	
+	@GetMapping(path = "/api/v1/loan/history/{id}")
+	public List<String> fetchHistory(@PathVariable("id") int id){
+		
+		return this.historyClient.getHistory(id);
+	}
+	
 	
 	
 	@GetMapping(path = "/api/v1/loan/process")
