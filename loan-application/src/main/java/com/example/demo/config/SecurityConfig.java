@@ -3,6 +3,7 @@ package com.example.demo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import feign.Logger;
 import feign.RequestInterceptor;
 import feign.auth.BasicAuthRequestInterceptor;
 
@@ -18,4 +19,10 @@ public class SecurityConfig {
    public RequestInterceptor basicAuthRequestInterceptor() {
        return new BasicAuthRequestInterceptor ("india", "india"); 
     }
+    
+        @Bean
+        Logger.Level feignLoggerLevel() {
+            return Logger.Level.FULL;
+        }
+
 }

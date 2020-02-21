@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
-import org.springframework.http.ResponseEntity;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.clients.CibilScoreClient;
 import com.example.demo.entity.CibilScore;
 import com.example.demo.entity.LoanApplication;
 import com.example.demo.repo.LoanProcessing;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import io.swagger.v3.oas.annotations.Operation;
 @RestController
@@ -28,11 +28,12 @@ public class LoanApplicationController {
 	CibilScoreClient scoreClient;
 	
 
-	
+
 
 	@GetMapping(path = "/api/v1/loan/approved")
 	public List<LoanApplication> findAllApproved(){
 	
+
 		List<LoanApplication> completeList = this.repoistory.findAll();
 		
 		List<LoanApplication> approvedList =completeList.stream().
@@ -54,6 +55,8 @@ public class LoanApplicationController {
 		
 		return pendingList;
 	}
+
+	
 	
 	@GetMapping(path = "/api/v1/loan/process")
 	@Operation(description = "The Method Invokes another Services and Updates the table ")
@@ -63,6 +66,9 @@ public class LoanApplicationController {
 		
 		List<LoanApplication> list= repoistory.findAll();
 		
+		if(list.size()<6) {
+			throw new RuntimeException();
+		}
 
 		for(LoanApplication eachLoan: list) {
 			  CibilScore response = 
@@ -79,4 +85,6 @@ public class LoanApplicationController {
 		
 		return message;
 	}
+	
+		
 }
