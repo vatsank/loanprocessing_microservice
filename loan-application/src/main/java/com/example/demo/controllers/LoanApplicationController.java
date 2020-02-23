@@ -34,9 +34,6 @@ public class LoanApplicationController {
 	private CibilScoreClient scoreClient;
 	
 
-	@Autowired
-	@Qualifier("rest")
-	private RestTemplate template;
 	
 	@Autowired
 	private PastHistoryClient historyClient;
@@ -72,22 +69,16 @@ public class LoanApplicationController {
 
 	
 	@GetMapping(path = "/api/v1/loan/history/{id}")
-	public String fetchHistory(@PathVariable("id") int id){
+	public List<String> fetchHistory(@PathVariable("id") int id){
 		
 		ServiceInstance serviceInstance= loadBalancer.choose("PAST-HISTORY-SERVICE");
        
 		System.out.println(serviceInstance.getUri());
 
-            String baseURL =serviceInstance.getUri().toString();
-            
-            
-            String url =baseURL+"/api/loan/history/"+id;
-    		
-            String response = template.getForObject(url,String.class);
-
+            return  historyClient.getHistory(id);
             
 		
-		return response;
+		
 	}
 	
 	
