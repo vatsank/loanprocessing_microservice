@@ -1,0 +1,15 @@
+server:
+  port: 2020
+spring:  datasource:    username: root
+    password: srivatsan
+    driver-class-name: com.mysql.cj.jdbc.Driver 
+    url: jdbc:mysql://localhost:3306/test
+ 
+  data:    rest:      base-path: /api/v1
+      
+  jpa:    hibernate:      ddl-auto: update
+      naming:        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl    show-sql: true    open-in-view: false  profiles:    active:    - dev
+    
+logging:  level:    org.hibernate.sql:  debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace   
+    
