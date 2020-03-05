@@ -7,7 +7,9 @@ import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.entity.CibilScore;
-
+import feign.Logger;
+import feign.Request;
+import feign.Retryer;
 @Configuration
 public class AppConfig {
 
@@ -41,4 +43,21 @@ public class AppConfig {
 		
 		return new CibilScore();
 	}
+	
+	  @Bean
+	  public Logger.Level configureLogLevel(){
+	    return  Logger.Level.FULL;
+	  }
+	  
+//	  @Bean 
+//	  public Request.Options timeoutConfiguration(){
+//	    
+//	    return new Request.Options(5000, 30000);
+//	  }
+	  
+//	  @Bean
+//	  public Retryer retryer() {
+//	    
+//	    return new Retryer.Default(1000, 8000, 3);		
+//	  }
 }

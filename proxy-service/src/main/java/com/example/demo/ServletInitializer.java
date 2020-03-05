@@ -7,9 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(InvoiceManagerApplication.class);
+		return application.sources(ProxyServiceApplication.class);
 	}
 
 }
-
-//https://www.briansdevblog.com/2019/04/service-integration-with-netflix-feign-and-ribbon/
