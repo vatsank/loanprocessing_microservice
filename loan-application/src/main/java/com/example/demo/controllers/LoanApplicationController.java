@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +23,13 @@ import com.example.demo.entity.LoanApplication;
 import com.example.demo.repo.LoanProcessing;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+import brave.Span;
+import brave.Tracer;
 import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @CrossOrigin("*")
 @Setter
+@Slf4j
 public class LoanApplicationController {
 
 	@Autowired
@@ -34,6 +39,8 @@ public class LoanApplicationController {
 	private CibilScoreClient scoreClient;
 	
 
+	@Autowired
+	Tracer tracer;
 	
 	@Autowired
 	private PastHistoryClient historyClient;
@@ -44,26 +51,36 @@ public class LoanApplicationController {
 	@GetMapping(path = "/api/v1/loan/approved")
 	public List<LoanApplication> findAllApproved(){
 	
+	    Span newSpan = tracer.nextSpan().name("Loan Approved").start();
+
+	    log.info("Fetching Approved  Loans");
 
 		List<LoanApplication> completeList = this.repoistory.findAll();
 		
 		List<LoanApplication> approvedList =completeList.stream().
 				 filter( eachLoan -> eachLoan.getStatus().equalsIgnoreCase("approved")).
 				 collect(Collectors.toList());
-		
+	    log.info("Completing Approved  Loans");
+	    newSpan.finish();
+
 		return approvedList;
 	}
 	
 	
 	@GetMapping(path = "/api/v1/loan/pending")
 	public List<LoanApplication> findAllPending(){
-		
+	    Span newSpan = tracer.nextSpan().name("Loan Pending").start();
+
+	    log.info("Fetching Pending  Loans");
+
 		List<LoanApplication> completeList = this.repoistory.findAll();
 		
 		List<LoanApplication> pendingList =completeList.stream().
 				 filter( eachLoan -> eachLoan.getStatus().equalsIgnoreCase("pending")).
 				 collect(Collectors.toList());
-		
+	    log.info("Finishing Pending  Loans");
+
+	    newSpan.finish();
 		return pendingList;
 	}
 
@@ -71,11 +88,16 @@ public class LoanApplicationController {
 	@GetMapping(path = "/api/v1/loan/history/{id}")
 	public List<String> fetchHistory(@PathVariable("id") int id){
 		
+	    Span newSpan = tracer.nextSpan().name("Loan Application").start();
+
+	    log.info("Fetching Service Instance");
 		ServiceInstance serviceInstance= loadBalancer.choose("PAST-HISTORY-SERVICE");
        
-		System.out.println(serviceInstance.getUri());
+		log.info(serviceInstance.getUri().toString());
 
-            return  historyClient.getHistory(id);
+		log.info("finished");
+        newSpan.finish();
+		return  historyClient.getHistory(id);
             
 		
 		
