@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-service
+server:
+  port: 8888
+customer-service:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:4040,localhost:5050
+    ServerListRefreshInterval: 15000
+    
+management:  endpoints:    web:      exposure:        include: "*"
+       
+       
+       
