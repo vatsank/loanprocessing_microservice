@@ -33,7 +33,7 @@ public class UsingProfilesApplication {
 		
 	}
 	
-	@Bean
+	@Bean(initMethod = "init")
 	@Profile("prod")
 	public UseProfile  prodProfileBean() {
 		

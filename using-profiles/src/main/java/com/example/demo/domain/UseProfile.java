@@ -29,8 +29,9 @@ public class UseProfile {
 	public void init() {
 
 		log.info("Init Method called");
-		log.info(env.getActiveProfiles().toString());
-		System.out.println(Arrays.asList(env.getDefaultProfiles().toString()));
+		Arrays.asList(env.getActiveProfiles()).forEach(System.out::println);
+
+		Arrays.asList(env.getDefaultProfiles()).forEach(System.out::println);
 
 		}
 }
