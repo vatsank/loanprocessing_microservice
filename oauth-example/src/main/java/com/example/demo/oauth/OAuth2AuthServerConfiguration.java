@@ -43,8 +43,8 @@ public class OAuth2AuthServerConfiguration extends AuthorizationServerConfigurer
             .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
             .scopes("read", "write", "trust")
             .secret("{noop}secret")
-            .accessTokenValiditySeconds(120).//Access token is only valid for 2 minutes.
-            refreshTokenValiditySeconds(600);//Refresh token is only valid for 10 minutes.
+            .accessTokenValiditySeconds(3000).//Access token is only valid for 2 minutes.
+            refreshTokenValiditySeconds(6000);//Refresh token is only valid for 10 minutes.
     }
  
     @Override
