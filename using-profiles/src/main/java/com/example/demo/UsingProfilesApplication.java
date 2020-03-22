@@ -24,7 +24,7 @@ public class UsingProfilesApplication {
 		  ctx.close();
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	@Profile("dev")
 	public UseProfile  devProfileBean() {
 		
