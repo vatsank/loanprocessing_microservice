@@ -44,6 +44,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.pivotal.spring.cloud</groupId>
+			<artifactId>
+				spring-cloud-services-starter-service-registry
+			</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -52,6 +58,15 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.pivotal.spring.cloud</groupId>
+				<artifactId>
+					spring-cloud-services-dependencies
+				</artifactId>
+				<version>2.1.7.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

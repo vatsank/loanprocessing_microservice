@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.example.demo.entity.Invoice;
 
-@RepositoryRestResource(path ="einvoices")
+@RepositoryRestResource()
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 

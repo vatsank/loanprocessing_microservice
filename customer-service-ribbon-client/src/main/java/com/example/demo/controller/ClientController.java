@@ -16,6 +16,7 @@ public class ClientController {
 	@Autowired
 	private RestTemplate template;
 
+	LoadBalancerClient client;
 	
 	@GetMapping(path = "/customer")
 	public String fetchData() {

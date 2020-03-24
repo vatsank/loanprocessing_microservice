@@ -18,10 +18,7 @@ public class RibbonConfig {
 	@Autowired
     IClientConfig config;
 	
-  
-
-    
-	 @Bean
+  	 @Bean
 	    public IRule ribbonRule(IClientConfig config) {
 	        
 		 //return new BestAvailableRule();
