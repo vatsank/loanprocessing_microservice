@@ -21,6 +21,7 @@ public class ClientController {
 	@GetMapping(path = "/customer")
 	public String fetchData() {
 
+		
 		return template.getForObject("http://customer-service/message", String.class);
 	}
 

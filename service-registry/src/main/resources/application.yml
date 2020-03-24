@@ -1,18 +1,11 @@
 spring:
-  profiles: default
-eureka:
-  instance:
-    hostname: default-eureka-server.com
-    appname: eureka-cluster
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    register-with-eureka: false
-    fetch-registry: false
-server:
-  port: 8761
+  profiles:
+    active: "peer-1"
+
 
 ---
+
+
 spring:
   profiles: peer-1
   application:    name: eureka-server-clustered
@@ -22,11 +15,11 @@ eureka:
     appname: eureka-server-clustered
   client:
     serviceUrl:
-      defaultZone: http://eureka-peer2:8770/eureka/
+      defaultZone: http://eureka-peer2:7770/eureka/
     register-with-eureka: true
     fetch-registry: true
 server:
-  port: 8765
+  port: 7765
   
 ---  
 
@@ -36,13 +29,12 @@ spring:
     name: eureka-server-clustered
 eureka:
   instance:
-  
-    hostname: eureka-peer2
-    appname: eureka-server-clustered
+      hostname: eureka-peer2
+      appname: eureka-server-clustered
   client:
     serviceUrl:
-      defaultZone: http://eureka-peer1:8765/eureka/
+      defaultZone: http://eureka-peer1:7765/eureka/
     register-with-eureka: true
     fetch-registry: true
 server:
-  port: 8770
+  port: 7770

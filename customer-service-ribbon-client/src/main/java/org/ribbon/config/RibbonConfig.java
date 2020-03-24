@@ -31,6 +31,7 @@ public class RibbonConfig {
 		@Bean
 		 public IPing ping(IClientConfig config) {
 			
+			
 			 return new PingUrl();
 		}
 	
