@@ -2,14 +2,14 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 
 @SpringBootApplication
-
-public class OauthExampleApplication {
+@EnableBinding(HelloBinding.class)
+public class CloudStreamProducerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OauthExampleApplication.class, args);
+		SpringApplication.run(CloudStreamProducerApplication.class, args);
 	}
 
 }
