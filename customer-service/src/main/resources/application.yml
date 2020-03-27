@@ -1,2 +1,2 @@
 spring:  profiles:    active: "prod"---spring:  profiles:  - dev  application:    name: developmentserver:  port: 4040  
----spring:  profiles:  - prod  application:    name: productionserver:  port: 5050  
+---spring:  profiles:  - prod  application:    name: productionserver:  port: 5050  logging:  file:    name: f:/elk/spring-boot-ioc.log    management:  endpoints:    web:      exposure:        include:        - "*"      metrics:    export:      elastic:        host: http://localhost:9200

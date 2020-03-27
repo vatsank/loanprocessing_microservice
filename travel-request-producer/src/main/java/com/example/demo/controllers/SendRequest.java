@@ -21,7 +21,7 @@ public class SendRequest {
 	@GetMapping("/makeRequest")
 	public String dispatchRequest() {
 		
-		TravelRequest req = new TravelRequest(102,20393939,"Vikas","A2",23000.00,"Client Meeting","requested");
+		TravelRequest req = new TravelRequest(205,30393939,"Suresh","A3",3000.00,"Local Travel","requested");
 		
 		source.output().send(MessageBuilder.withPayload(req).build());
 		

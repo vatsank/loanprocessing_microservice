@@ -19,8 +19,7 @@ public class ProducerController {
 	    @GetMapping("/greet/{name}")
 	    public void publish(@PathVariable String name) {
 	        String greeting = "How are you Mr, " + name + "!";
-	        Message<String> msg = MessageBuilder.withPayload(greeting)
-	            .build();
+	        Message<String> msg = MessageBuilder.withPayload(greeting).build();
 	        this.greet.send(msg);
 	    }
 }
