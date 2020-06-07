@@ -9,6 +9,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import com.example.demo.domains.City;
 import com.example.demo.domains.CurrencyConverter;
 import com.example.demo.domains.UnitConverter;
+import com.example.demo.domains.Weather;
 import com.example.demo.services.TranslateService;
 import com.example.demo.services.WeatherService;
 import com.training.ifaces.Converter;
@@ -36,7 +37,7 @@ WeatherService account = ctx.getBean(WeatherService.class);
 
 City chn = ctx.getBean(City.class);
 
- account.updateAccountDescription(chn);
+ account.getWeather(chn);
 	ctx.close();
 	}
 
@@ -45,4 +46,11 @@ City chn = ctx.getBean(City.class);
 		
 		return new City(1200,"Chennai","India");
 	}
+	
+	@Bean
+	public Weather chennaiWeather() {
+		
+		return new Weather("Chennai", "36/30", "65%", "km/h");
+	}
+	
 }

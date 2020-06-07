@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class City {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Weather {
 
-	
-	int cityCode;
-	String cityName;
-	String country;
+	String city;
+	String highLow;
+	String humidity;
+	String wind;
 }

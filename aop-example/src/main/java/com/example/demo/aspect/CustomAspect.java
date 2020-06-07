@@ -5,13 +5,13 @@ import java.util.Arrays;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import com.example.demo.domains.City;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @Slf4j
+
 public class CustomAspect {
 
     @Around("com.example.demo.config.CommonPointCutConfigs.dataLayerExecution()")
@@ -69,6 +70,11 @@ public class CustomAspect {
     	
     }
     
-    
-    
+    @AfterReturning(returning = "mowsam" ,value="com.example.demo.config.CommonPointCutConfigs.afterReturn()")
+    public void usingReturn(JoinPoint joinPoint,Object mowsam) {
+    	
+    	log.info("@@@@@@@ After Returning"+joinPoint.getKind());
+    	
+    	log.info("@@@@ -->"+mowsam);
+    }
 }

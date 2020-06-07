@@ -25,7 +25,7 @@ public class UsingProfilesApplication {
 	}
 
 	@Bean(initMethod = "init")
-	@Profile("dev")
+	@Profile(Profiles.DEVELOPMENT)
 	public UseProfile  devProfileBean() {
 		
 		return new UseProfile();
@@ -34,7 +34,7 @@ public class UsingProfilesApplication {
 	}
 	
 	@Bean(initMethod = "init")
-	@Profile("prod")
+	@Profile(Profiles.PRODUCTION)
 	public UseProfile  prodProfileBean() {
 		
 		return new UseProfile();
